@@ -1,0 +1,23 @@
+Working downgraded map MAP_Main_Downgraded + GoodSky 4.27
+
+The official Asset Downgrader now yields a map that opens correctly in VITE with
+full geometry fidelity, native lights, sky atmosphere and post-process.
+
+Root blocker found and fixed: the World Settings GameMode override
+(GM_CounterStrike) pulled the player pawn -> AnimBP_Player struct mismatch ->
+UObjectAnnotation assertion. Setting default_game_mode to GameModeBase (not None)
+unblocked the load. Removing gameplay BP actors and BP_GoodSky_C was also required.
+
+Full recipe: docs/DOWNGRADER_MAP_SUCCESS.md. Key gotchas captured:
+- never run SaveSelectedAssets in the 5.7 source (re-upgrades the file)
+- downgraded package isn't AssetRegistry-scannable until resaved; load by path,
+  then Ctrl+S in VITE to get a clean native asset
+- never load a freshly-duplicated map while the source map is loaded (world leak)
+
+GoodSky: UE5 BP_GoodSky_C is un-downgradable; native GoodSky 4.27 (Fab) copied to
+VITE at /Game/GoodSky. EditorStartupMap/GameDefaultMap repointed to the new map.
+
+The JSON-rebuild path (MAP_Main_VisualOnly_V2) is abandoned: visually wrong even
+after the rotation-order fix, too lossy for parity.
+
+Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>

@@ -24,12 +24,20 @@ Current VITE engine:
 D:\CLONE VITE UE5\Engine\Binaries\Win64\UE4Editor.exe
 ```
 
-Important status as of 2026-05-27:
+Important status as of 2026-05-27 (evening update):
 
-- The previous automatic map rebuild is no longer accepted as visually correct.
-- `/Game/Maps/MAP_Main_VITE_Auto` can load/resave, but it must be treated as a failed prototype, not as the final map.
-- `/Game/Maps/MAP_Main_VisualOnly` was deleted after visual verification showed the layout was broken.
-- The map port must restart from Pass 0 with a measured UE5.7 reference scene before any new VITE rebuild.
+- **WORKING MAP: `/Game/Maps/MAP_Main_Downgraded`** — produced via the official Asset
+  Downgrader after stripping the gameplay GameMode override. Geometry visually confirmed
+  correct in VITE, with native lights / sky atmosphere / post-process. Full recipe in
+  [docs/DOWNGRADER_MAP_SUCCESS.md](docs/DOWNGRADER_MAP_SUCCESS.md). This is now the
+  canonical visual map and the editor startup map.
+- Rejected approaches (history only):
+  - `/Game/Maps/MAP_Main_VITE_Auto` — commandlet-valid but visually wrong.
+  - `/Game/Maps/MAP_Main_VisualOnly` (deleted) and `/Game/Maps/MAP_Main_VisualOnly_V2`
+    (JSON rebuild) — visually wrong even after the rotation-order fix; the export/rebuild
+    path is too lossy. Use the downgrader path instead.
+- Sky: UE5 `BP_GoodSky_C` is un-downgradable; use the **native GoodSky 4.27** (Fab),
+  copied to VITE at `/Game/GoodSky`.
 
 ## What Works
 
