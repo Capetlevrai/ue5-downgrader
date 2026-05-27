@@ -59,5 +59,6 @@ See:
 - [Map reconstruction](docs/MAP_RECONSTRUCTION.md)
 - [Asset Downgrader notes](docs/ASSET_DOWNGRADER_NOTES.md)
 - [Pass 0 restart plan](docs/PASS_0_RESTART_PLAN.md)
+- [Pass 0 results](docs/PASS_0_RESULTS.md)
 - [Remaining work](docs/REMAINING_WORK.md)
 - [Fresh Codex prompt](prompts/CONTINUE_PORT_IN_CODEX.md)

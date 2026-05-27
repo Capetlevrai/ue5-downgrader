@@ -37,6 +37,7 @@ D:\PORTAGE_VITE\ue5-downgrader\docs\PORTAGE_STATUS.md
 D:\PORTAGE_VITE\ue5-downgrader\docs\MAP_RECONSTRUCTION.md
 D:\PORTAGE_VITE\ue5-downgrader\docs\ASSET_DOWNGRADER_NOTES.md
 D:\PORTAGE_VITE\ue5-downgrader\docs\PASS_0_RESTART_PLAN.md
+D:\PORTAGE_VITE\ue5-downgrader\docs\PASS_0_RESULTS.md
 D:\PORTAGE_VITE\ue5-downgrader\docs\REMAINING_WORK.md
 D:\PORTAGE_VITE\ue5-downgrader\docs\CRASHES_AND_FIXES.md
 

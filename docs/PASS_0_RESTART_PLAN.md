@@ -70,3 +70,11 @@ Only after Pass 0 is complete:
 - Spawn meshes using component world transforms, not simplified actor transforms.
 - Recreate lights and visual volumes from captured properties.
 - Validate by commandlet and by visual screenshot comparison.
+
+## Current Pass 0 Result
+
+See:
+
+```text
+docs/PASS_0_RESULTS.md
+```
