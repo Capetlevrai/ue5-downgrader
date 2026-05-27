@@ -88,6 +88,39 @@ Fix:
 
 - Do actor spawning in full editor startup Python, not commandlet Python.
 
+## UE 5.7 — World Memory Leaks On Duplicated Map Load
+
+Symptom:
+
+```text
+Fatal error: [File:EditorServer.cpp] [Line: 2524]
+World Memory Leaks: 2 leaks objects and packages.
+```
+
+Repro (2026-05-27):
+
+1. UE 5.7 source editor open with `/Game/Maps/MAP_Main` loaded.
+2. `asset.duplicate /Game/Maps/MAP_Main -> /Game/Maps/MAP_Main_Sanitized` (succeeds).
+3. `level.load /Game/Maps/MAP_Main_Sanitized` → editor crashes.
+
+Cause:
+
+- Duplicating a map while the source map is still loaded leaves cross-references
+  between the duplicate package and the source UWorld.
+- The next world-switch triggers UE 5.7's strict world memory leak detector,
+  which aborts because `MAP_Main` UWorld is still referenced by the duplicate's
+  redirector tree.
+
+Fix:
+
+- Always work on the duplicated map from a fresh editor process where the
+  source map was never loaded.
+- Recipe:
+  1. Duplicate first (with the source map loaded is fine).
+  2. Close the editor.
+  3. Reopen the editor (do NOT pre-open the source map).
+  4. Load the duplicate — clean.
+
 ## Blueprint Class Loading Crash
 
 Symptom:
