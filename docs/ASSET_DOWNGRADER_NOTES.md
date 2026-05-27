@@ -67,6 +67,37 @@ Level Blueprint. The JSON-rebuild path (`MAP_Main_VisualOnly_V2`, native actors 
 zero Blueprint imports) remains the working approach. Lights/sky/postprocess are being
 added to that rebuild from the Pass 0 export data (all native classes).
 
+## Pre-downgrade fix — Packed Level Actors
+
+From the Downgrader plugin author (**BiKouZ**, Discord, 2026-05-27, in reply to our
+crash question):
+
+> "Downgrading packed level actors to 4.27 can cause crashes due to class reparenting
+> (They don't exist in 4.27). To fix that, open all maps where you have packed level
+> actors and use the **BreakPackedActors** option. Afterwards proceed with the downgrade
+> as usual."
+
+How to apply, in the source UE 5.7 (Downgrader) editor:
+
+1. Open the map containing packed level actors.
+2. Select the packed-level-actor instances in the Content Browser or Outliner.
+3. Downgrader menu → **`BreakPackedActors`** (visible in the Downgrader toolbar menu
+   alongside `DowngradeSelectedAssets`, `RemoveWorldPartitionFromSelectedAssets`, etc.).
+4. Save the map.
+5. Then run `DowngradeSelectedAssets` as usual.
+
+Our MAP_Main port did not need this (no packed level actors in it — only StaticMeshActor,
+native lights/atmosphere/postprocess, and the BPs we stripped). But any future map that
+uses packed-level instances or was built via level-instance-to-packed conversion will hit
+this crash; `BreakPackedActors` is the prerequisite.
+
+Related — also in the same Downgrader menu:
+
+- **`RemoveWorldPartitionFromSelectedAssets`** — needed if the map uses World Partition
+  (WP doesn't exist in 4.27). Run before `DowngradeSelectedAssets`.
+- **`FixLandscape`** / **`FixSubstrateMaterials`** / **`RevertSubstrateMaterials`** —
+  domain-specific repairs for landscape and Substrate materials.
+
 ## Project-Specific Rules
 
 - Keep the Downgrader plugin disabled in the VITE runtime validation target.
