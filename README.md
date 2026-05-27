@@ -62,3 +62,4 @@ See:
 - [Pass 0 results](docs/PASS_0_RESULTS.md)
 - [Remaining work](docs/REMAINING_WORK.md)
 - [Fresh Codex prompt](prompts/CONTINUE_PORT_IN_CODEX.md)
+- [Claude handoff prompt](prompts/CONTINUE_WITH_CLAUDE.md)
