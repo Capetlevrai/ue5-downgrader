@@ -133,6 +133,74 @@ fixes issues usually within 24 hours.
 
 ---
 
+## Video tutorial — walkthrough notes (plugin v1.10, 5.4 → 4.27)
+
+- **Video**: https://www.youtube.com/watch?v=yXvJfDNfrSQ
+- **Published**: 2024-06-13
+- **Plugin version shown**: 1.10 (note: our local plugin is 1.34 — newer)
+
+Transcribed from the auto-generated English subtitles
+(`[English (auto-generated)] Asset Downgrader for UE5 Tutorial and Demo (v1.10).srt`).
+
+**Concrete example demonstrated**: downgrading the *June 2024 free assets of the month*
+marketplace pack — 340 assets — from UE 5.4 to UE 4.27 using plugin v1.10. Below are the
+specific, actionable bits the video adds on top of the text documentation.
+
+### 5.3 versus 5.4 — when you need the custom engine
+
+- **5.3 → 4.27**: the launcher version of the plugin is enough.
+  `Downgrader → DowngradeSelectedAssets → 4.27`, done.
+- **5.4 → 4.27**: requires the **custom engine build**. Trying the launcher version in
+  5.4 produces an error dialog asking *"download custom engine build? [Yes/No]"*. Click
+  **Yes** and it opens the vendor's **Google Drive folder**.
+
+### Custom engine setup — concrete steps from the demo
+
+1. From the Google Drive, download:
+   - The **custom UE 5.4.2 build** (~**15 GB zipped, ~50 GB unpacked**).
+   - The **plugin precompiled for that custom 5.4.2 build** (in the demo: `Downgrader
+     1.10 for 5.4.2`).
+2. Extract the custom engine somewhere. The demo uses `C:\UE_5.4 downgrader`.
+3. In your **project folder**, switch the engine version from launcher 5.4 to the
+   downgrader build:
+   - Right-click the `.uproject` → *Switch Unreal Engine Version*.
+   - It won't be in the list — choose *"select folder"* and point it at the custom
+     engine folder.
+4. Extract the precompiled plugin zip, rename if needed, **create a `Plugins/` folder
+   in the project**, and drop the plugin in there.
+5. **Reopen the project on the custom engine.** The Downgrader menu is now backed by
+   the engine-modification version that can handle 5.4 → older.
+6. `Downgrader → DowngradeSelectedAssets → 4.27` → confirm the engine-modifications
+   prompt → it loads all assets, patches them, saves them.
+
+### Migration step shown in the video
+
+After downgrade, **copy the `.uasset` files** from the source project's `Content/`
+folder into a **fresh 4.27 project's `Content/`** folder, then open the 4.27 project.
+No `Actions → Migrate`.
+
+### Live fix demonstrated — landscape goes black in 4.27
+
+When the user opens the downgraded map in 4.27, the ground is rendered black. Fix:
+
+`Downgrader menu → FixLandscape` → recompiles the landscape material's shaders → ground
+renders correctly. (This is the same `FixLandscape` option present in our menu screenshot
+captured earlier.)
+
+### Known live-discovered glitch — tree material swap
+
+In the demo the trees in the downgraded scene had **swapped materials** (each tree mesh
+ended up with the wrong material). The vendor explicitly says on camera that he had *just
+discovered* this and would investigate. Treat it as an open class of post-downgrade
+visual artifacts that may need per-asset cleanup.
+
+### Closing line from the video
+
+> "If you encounter crashes either while downgrading in 5.4 or when you open the maps in
+> your target version, send them to me and I'll work on a fix." (relativegames7@gmail.com)
+
+---
+
 *Doc-version note*: this captures the vendor doc as it stood when we pasted it
 (2026-05-27). Earlier local copies (`D:\PORTAGE_VITE\AssetDowngrader_Downloads\
 Downgrader_1.34_for_4.27.2\Documentation.txt`) referenced a smaller version list
